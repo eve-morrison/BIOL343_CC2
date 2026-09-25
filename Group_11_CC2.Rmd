@@ -132,6 +132,7 @@ Your project folder is a GitHub repository (Chapter 6). Before you submit:
 
 Final commit SHA: 
 
+
 # DO THIS LAST {-}
 
 When your document is finished, knitted and pushed to GitHub, copy and paste this into the R Console to stop positpal and create your coding log. **Do not include it as a code chunk.**
