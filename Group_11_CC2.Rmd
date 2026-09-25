@@ -82,7 +82,7 @@ tail(cc1_data)
 Write the formula you used for ovary area as a **full-line equation** in LaTeX (Chapter 5, *Equations*), using `\times` for multiplication. Then, in a sentence of ordinary text, state its units using an **in-line equation** with a superscript.
 
 $$\text{width} \times \text{height} = \text{ovary area}$$
-$\text{width}(mm) \times \text{height}(mm) = \text{ovary area}(mm^2)$
+$\text{ovary area units are } mm^2$
 
 
 
@@ -99,24 +99,28 @@ print(area_means)
 
 ```{r area-table}
 library(knitr)
-kable(SumTable, caption = "Ovary Area Means by Reproductive Strategy")
+kable(area_means, caption = "Ovary Area Means by Reproductive Strategy")
 ```
 
 # Embedded graph
 
 Make a histogram of `ovary_area` with `ggplot()` + `geom_histogram()` (Chapter 4), choosing a sensible `binwidth` and using `facet_wrap()` to give each `population_type` its own panel, `labs()` for axis labels with units and a title, and `theme_classic()` (Chapter 7). This chunk should show the **graph but not the code**, and it should not print package start-up messages (see the chunk header used under *Embed Graphs* in Chapter 5).
 
-```{r area-histogram}
-
+```{r area-histogram, echo = F}
+library(ggplot2)
+Plot1 <- ggplot( aes(x=ovary_area), data=cc1_data) + geom_histogram(binwidth=1.5) + xlab("Ovary Area") + ylab("Number of individuals)") + labs(title="Ovary Area by Reproductive Strategy") + theme_classic() + facet_wrap(~ poptype) 
+print(Plot1)
 ```
 
 # Image
 
 Embed an image of the study species, *Solanum pimpinellifolium*, with Markdown image syntax (Chapter 5, *Images*). Save the image file in an `images` folder inside your project folder and use a **relative path**, exactly as the chapter does, so that the image is pushed to GitHub with everything else. The text in the square brackets is the caption. Below the image, give the **source** as a Markdown link to the page you took it from.
 
-(image here)
+[Solanum pimpinellifolium](./images/CC2_image.jpg)
+
 
 Source: 
+[Linked .png file](https://onq.queensu.ca/d2l/le/dropbox/1208667/492536/DownloadAttachment?fid=54136532)
 
 # Repository
 

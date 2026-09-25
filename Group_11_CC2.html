@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Group 11">
-<meta name="dcterms.date" content="2026-09-24">
+<meta name="dcterms.date" content="2026-09-25">
 
 <title>BIOL343 Coding Challenge 2</title>
 <style>
@@ -78,6 +78,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="Group_11_CC2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Group_11_CC2_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -106,7 +135,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 24, 2026</p>
+      <p class="date">September 25, 2026</p>
     </div>
   </div>
   
@@ -200,88 +229,124 @@ positpal::start("Group_11_CC2.Rmd")</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/evemorrison/Documents/343/CC2/data"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cc1_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"A1_Data_Excel.csv"</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(poptype, width, height, flonum)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cc1_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>cc1_data<span class="sc">$</span>ovary_area <span class="ot">&lt;-</span> cc1_data<span class="sc">$</span>width<span class="sc">*</span>cc1_data<span class="sc">$</span>height</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cc1_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   poptype width height flonum
-1        A  3.62   3.48     NA
-2        A  3.61   3.59     NA
-3        A  2.98   2.68     NA
-4        A  3.48   4.08     NA
-5        A  3.43   2.94     NA
-6        A  3.87   3.11     NA
-7        A  3.36   3.28  47.68
-8        A  3.62   2.86  52.59
-9        A  3.55   2.87  89.00
-10       A  3.39   3.17  46.55
-11       A  3.43   2.57  13.00
-12       A  3.41   3.75  65.55
-13       A  3.42   3.11  56.69
-14       A  3.14   2.57  13.95
-15       A  3.33   3.19  28.92
-16       A  3.25   3.25  12.40
-17       A  3.02   2.70  28.60
-18       A  3.41   2.67  14.07
-19       A  2.94   2.79     NA
-20       A  3.44   3.24  65.39
-21       A  3.91   3.30  36.84
-22       A  3.31   2.92  97.39
-23       S  3.19   2.74     NA
-24       S  3.56   2.94     NA
-25       S  3.41   3.06     NA
-26       S  3.80   2.80     NA
-27       S  3.45   3.66     NA
-28       S  3.58   3.41     NA
-29       S  4.17   3.11     NA
-30       S  2.85   2.64  21.58
-31       S  3.57   2.99  49.00
-32       S  2.61   2.17     NA
-33       S  3.88   2.95     NA
-34       S  3.32   2.96 141.45
-35       S  3.41   3.15 149.16
-36       S  3.65   3.16  56.56
-37       S  3.43   2.70 181.76
-38       S  3.68   2.94     NA
-39       S  3.71   3.11  71.55
-40       S  3.23   3.41  25.91
-41       S  3.18   2.46  39.50
-42       S  3.16   2.67     NA
-43       S  3.34   3.11  45.30
-44       S  3.35   2.83     NA
-45       S  3.78   3.18     NA
-46       S  3.30   2.88     NA</code></pre>
+<pre><code>[1] "poptype"    "width"      "height"     "flonum"     "ovary_area"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cc1_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   poptype width height flonum ovary_area
+1        A  3.62   3.48     NA    12.5976
+2        A  3.61   3.59     NA    12.9599
+3        A  2.98   2.68     NA     7.9864
+4        A  3.48   4.08     NA    14.1984
+5        A  3.43   2.94     NA    10.0842
+6        A  3.87   3.11     NA    12.0357
+7        A  3.36   3.28  47.68    11.0208
+8        A  3.62   2.86  52.59    10.3532
+9        A  3.55   2.87  89.00    10.1885
+10       A  3.39   3.17  46.55    10.7463
+11       A  3.43   2.57  13.00     8.8151
+12       A  3.41   3.75  65.55    12.7875
+13       A  3.42   3.11  56.69    10.6362
+14       A  3.14   2.57  13.95     8.0698
+15       A  3.33   3.19  28.92    10.6227
+16       A  3.25   3.25  12.40    10.5625
+17       A  3.02   2.70  28.60     8.1540
+18       A  3.41   2.67  14.07     9.1047
+19       A  2.94   2.79     NA     8.2026
+20       A  3.44   3.24  65.39    11.1456
+21       A  3.91   3.30  36.84    12.9030
+22       A  3.31   2.92  97.39     9.6652
+23       S  3.19   2.74     NA     8.7406
+24       S  3.56   2.94     NA    10.4664
+25       S  3.41   3.06     NA    10.4346
+26       S  3.80   2.80     NA    10.6400
+27       S  3.45   3.66     NA    12.6270
+28       S  3.58   3.41     NA    12.2078
+29       S  4.17   3.11     NA    12.9687
+30       S  2.85   2.64  21.58     7.5240
+31       S  3.57   2.99  49.00    10.6743
+32       S  2.61   2.17     NA     5.6637
+33       S  3.88   2.95     NA    11.4460
+34       S  3.32   2.96 141.45     9.8272
+35       S  3.41   3.15 149.16    10.7415
+36       S  3.65   3.16  56.56    11.5340
+37       S  3.43   2.70 181.76     9.2610
+38       S  3.68   2.94     NA    10.8192
+39       S  3.71   3.11  71.55    11.5381
+40       S  3.23   3.41  25.91    11.0143
+41       S  3.18   2.46  39.50     7.8228
+42       S  3.16   2.67     NA     8.4372
+43       S  3.34   3.11  45.30    10.3874
+44       S  3.35   2.83     NA     9.4805
+45       S  3.78   3.18     NA    12.0204
+46       S  3.30   2.88     NA     9.5040</code></pre>
 </div>
 </div>
 <p>Now document the inspection commands you used (<code>class()</code>, <code>dim()</code>, <code>str()</code>, <code>head()</code>, <code>tail()</code>) in the chunk below. Add the chunk option that <strong>shows this code in the report but does not run it</strong>, so that the reader can see what you checked without pages of output.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cc1_data)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(cc1_data)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cc1_data)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cc1_data)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(cc1_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cc1_data)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(cc1_data)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(cc1_data)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cc1_data)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(cc1_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="equation" class="level1">
 <h1>Equation</h1>
 <p>Write the formula you used for ovary area as a <strong>full-line equation</strong> in LaTeX (Chapter 5, <em>Equations</em>), using <code>\times</code> for multiplication. Then, in a sentence of ordinary text, state its units using an <strong>in-line equation</strong> with a superscript.</p>
-<p>(equation here)</p>
+<p><span class="math display">\[\text{width} \times \text{height} = \text{ovary area}\]</span> <span class="math inline">\(\text{ovary area units are } mm^2\)</span></p>
 </section>
 <section id="dynamic-table" class="level1">
 <h1>Dynamic table</h1>
 <p><strong>a.</strong> In the chunk below, calculate the mean <code>ovary_area</code> for each <code>population_type</code> with <code>aggregate()</code> (Chapter 3, <em>Other Functions</em>) and save the result as <code>area_means</code>. This chunk should run but be <strong>completely hidden</strong> in the report.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># area_means &lt;- </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 <p><strong>b.</strong> Display <code>area_means</code> with <code>kable()</code> from the <code>knitr</code> package (Chapter 5, <em>Dynamic Tables</em>), including a <code>caption</code>. This chunk should show the <strong>table but not the code</strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(area_means, <span class="at">caption =</span> <span class="st">"Ovary Area Means by Reproductive Strategy"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Ovary Area Means by Reproductive Strategy</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">poptype</th>
+<th style="text-align: right;">ovary_area</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">10.58363</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">S</td>
+<td style="text-align: right;">10.24086</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
 <section id="embedded-graph" class="level1">
 <h1>Embedded graph</h1>
 <p>Make a histogram of <code>ovary_area</code> with <code>ggplot()</code> + <code>geom_histogram()</code> (Chapter 4), choosing a sensible <code>binwidth</code> and using <code>facet_wrap()</code> to give each <code>population_type</code> its own panel, <code>labs()</code> for axis labels with units and a title, and <code>theme_classic()</code> (Chapter 7). This chunk should show the <strong>graph but not the code</strong>, and it should not print package start-up messages (see the chunk header used under <em>Embed Graphs</em> in Chapter 5).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Group_11_CC2_files/figure-html/area-histogram-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="image" class="level1">
 <h1>Image</h1>
 <p>Embed an image of the study species, <em>Solanum pimpinellifolium</em>, with Markdown image syntax (Chapter 5, <em>Images</em>). Save the image file in an <code>images</code> folder inside your project folder and use a <strong>relative path</strong>, exactly as the chapter does, so that the image is pushed to GitHub with everything else. The text in the square brackets is the caption. Below the image, give the <strong>source</strong> as a Markdown link to the page you took it from.</p>
-<p>(image here)</p>
-<p>Source:</p>
+<p><a href="./images/CC2_image.jpg">Solanum pimpinellifolium</a></p>
+<p>Source: <a href="https://onq.queensu.ca/d2l/le/dropbox/1208667/492536/DownloadAttachment?fid=54136532">Linked .png file</a></p>
 </section>
 <section id="repository" class="level1">
 <h1>Repository</h1>
