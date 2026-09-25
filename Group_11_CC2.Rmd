@@ -97,7 +97,7 @@ print(area_means)
 
 **b.** Display `area_means` with `kable()` from the `knitr` package (Chapter 5, *Dynamic Tables*), including a `caption`. This chunk should show the **table but not the code**.
 
-```{r area-table}
+```{r area-table, echo=F}
 library(knitr)
 kable(area_means, caption = "Ovary Area Means by Reproductive Strategy")
 ```
